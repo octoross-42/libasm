@@ -7,16 +7,14 @@ section .text
 
 ft_strlen:
 	xor rax, rax
-	test rdi, rdi
-	jz return
-	loop:
+	.loop:
 		mov r10b, [rdi + rax]
 		
 		cmp r10b, 0
-		je return
+		je .return
 		inc rax
-		jmp loop
-	return:
+		jmp .loop
+	.return:
 		ret
 
 section .note.GNU-stack noalloc noexec nowrite progbits
