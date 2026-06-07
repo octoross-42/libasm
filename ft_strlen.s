@@ -1,5 +1,4 @@
-; hello.asm - My first NASM program!
-; This program prints "Hello, Assembly!" to the console
+; strlen, segfault when the first argument isnt a valid pointer, and potentianlly segfault if the pointer doesnt end in a '\0' and memory goes forbidden access 
 
 section .text
     global ft_strlen
@@ -9,12 +8,11 @@ ft_strlen:
 	xor rax, rax
 	.loop:
 		mov r10b, [rdi + rax]
-		
-		cmp r10b, 0
-		je .return
+		test r10b, r10b
+		jz .return
 		inc rax
 		jmp .loop
 	.return:
 		ret
 
-section .note.GNU-stack noalloc noexec nowrite progbits
+section .note.GNU-stack noexec

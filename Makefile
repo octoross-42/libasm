@@ -1,6 +1,12 @@
 NAME = libasm.a
 
-SRCS = ft_strlen.s
+SRCS = ft_strlen.s \
+		ft_strcmp.s \
+		ft_strcpy.s \
+		ft_write.s \
+		ft_read.s \
+		ft_strdup.s \
+		side_effects.s
 BUILD = build
 
 OBJS = $(SRCS:%.s=$(BUILD)/%.o)
@@ -11,8 +17,7 @@ ASMFLAGS = -f elf64
 RUN_NAME = run
 
 CC = gcc
-CFLAGS = -Wall -Wextra 
-# -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 SRCS_RUN = main.c
 OBJS_RUN = $(SRCS_RUN:%.c=$(BUILD)/%.o)
