@@ -6,8 +6,8 @@ ft_strcpy:
 	.loop:
 		mov r10b, [rsi + rax]
 		mov [rdi + rax], r10b
-		cmp byte [rsi + rax], 0
-		je .return
+		test r10b, r10b
+		jz .return
 		inc rax
 		jmp .loop
 	.return:

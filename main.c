@@ -70,7 +70,7 @@ void	*malloc(size_t size)
 unsigned int	write_ulong(unsigned long n)
 {
 	unsigned int len = 0;
-	if (n > 10)
+	if (n > 9)
 		len += write_ulong(n / 10);
 	char c = (n % 10) + '0';
 	write(1, &c, 1);
@@ -178,6 +178,7 @@ void	test_strcmp(int argc, char **argv)
 
 void	test_strcpy(int argc, char **argv)
 {
+	// invalid read sur le strlen si src > dest -> normal
 	unsigned int len_block = 24;
 
 	write_code("╔════ ft_strcpy ═══════════════════════════════════════════════════════════╗\n\t", BOLD);
@@ -193,11 +194,15 @@ void	test_strcpy(int argc, char **argv)
 		write(1, "\t", 1);
 		dest = strdup(argv[i]);
 		if (!dest)
+		{
+			write_code("malloc failed\n", RED);
 			return ;
+		}
 		src = strdup(argv[i + 1]);
 		if (!src)
 		{
 			free(dest);
+			write_code("malloc failed\n", RED);
 			return ;
 		}
 		block_write(dest, BLUE, 1, 1, len_block);
@@ -366,6 +371,6 @@ int	main(int argc, char **argv)
 	// test_write(argc, argv);
 	// test_read(argc, argv);
 	// test_read_open(argc, argv);
-	// test_strcpy(argc, argv);
+	test_strcpy(argc, argv);
 	test_strdup(argc, argv);
 }

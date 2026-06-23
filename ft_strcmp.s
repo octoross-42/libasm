@@ -8,8 +8,8 @@ ft_strcmp:
 		mov r10b, [rdi + rax]
 		cmp r10b, [rsi + rax]
 		jne .return
-		cmp r10b, 0
-		je .return
+		test r10b, r10b
+		jz .return
 		inc rax
 		jmp .loop
 	.return:

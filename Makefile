@@ -5,8 +5,7 @@ SRCS = ft_strlen.s \
 		ft_strcpy.s \
 		ft_write.s \
 		ft_read.s \
-		ft_strdup.s \
-		side_effects.s
+		ft_strdup.s
 BUILD = build
 
 OBJS = $(SRCS:%.s=$(BUILD)/%.o)
@@ -48,5 +47,5 @@ $(BUILD)/%.o: %.c
 	@mkdir -p $(BUILD)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-c: $(OBJS_RUN) $(NAME)
+run: $(OBJS_RUN) $(NAME)
 	${CC} ${OBJS_RUN} ${NAME} -o ${RUN_NAME}
