@@ -17,6 +17,25 @@ void	write_code(char *s, char *code)
 	write(1, RESET, strlen(RESET));
 }
 
+
+void	write_int(long n, char *code)
+{
+	write(1, " ", 1);
+	write(1, code, strlen(code));
+	long long pos = n;
+	
+	unsigned int len = 1;
+	if (pos < 0)
+	{
+		write(1, "-", 1);
+		pos = -pos;
+		len += 1;
+	}
+	len += write_ulong((unsigned int) pos);
+	write(1, RESET, strlen(RESET));
+}
+
+
 void	block_write_int(long n, char *code, unsigned int len_block)
 {
 	write(1, " ", 1);

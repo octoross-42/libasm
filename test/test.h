@@ -51,6 +51,8 @@
 # define RMOVERLINE "\x1B[55m"
 
 # define IGREY "\x1B[3;90m"
+# define LBBLUE "\x1B[36;1m"
+# define ILGREY "\x1B[37;3m"
 
 # include "libasm.h"
 
@@ -64,6 +66,7 @@
 unsigned int	write_ulong(unsigned long n);
 void			write_code(char *s, char *code);
 void			block_write_int(long n, char *code, unsigned int len_block);
+void			write_int(long n, char *code);
 void			block_write(char *s, char *code, int quote, int data, unsigned int len_block);
 
 #endif
