@@ -1,14 +1,14 @@
 NAME = libasm.a
 
-SRCS = ft_strlen.s \
-		ft_strcmp.s \
-		ft_strcpy.s \
-		ft_write.s \
-		ft_read.s \
-		ft_strdup.s
-BUILD = build
+SRCS    = src/ft_strlen.s \
+		src/ft_strcmp.s \
+		src/ft_strcpy.s \
+		src/ft_write.s \
+		src/ft_read.s \
+		src/ft_strdup.s
+BUILD   = build
 
-OBJS = $(SRCS:%.s=$(BUILD)/%.o)
+OBJS	 = $(patsubst src/%.s,$(BUILD)/%.o,$(SRCS))
 
 ASM = nasm
 ASMFLAGS = -f elf64
@@ -16,13 +16,15 @@ ASMFLAGS = -f elf64
 RUN_NAME = run
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS   = -Wall -Wextra -Werror -g3
 
-SRCS_RUN = main.c
-OBJS_RUN = $(SRCS_RUN:%.c=$(BUILD)/%.o)
+SRCS_RUN = test/main.c \
+		test/test_write.c
+OBJS_RUN = $(patsubst src/%.s,$(BUILD)/%.o,$(SRCS_RUN))
 
 
-$(BUILD)/%.o: %.s
+
+$(BUILD)/%.o: src/%.s
 	@mkdir -p $(BUILD)
 	$(ASM) $(ASMFLAGS) $< -o $@
 
@@ -35,17 +37,17 @@ s: ${OBJS}
 all : ${NAME}
 
 clean:
-	rm -f ${OBJS}
+	rm -fr ${OBJS} ${BUILD}
 
 fclean: clean
-	rm -f ${NAME}
+	rm -f ${NAME} ${RUN_NAME}
 
 re: fclean all
 
 
-$(BUILD)/%.o: %.c
+$(BUILD)/%.o: test/%.c
 	@mkdir -p $(BUILD)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 run: $(OBJS_RUN) $(NAME)
-	${CC} ${OBJS_RUN} ${NAME} -o ${RUN_NAME}
+	${CC} -I src -I test ${OBJS_RUN} ${NAME} -o ${RUN_NAME}
